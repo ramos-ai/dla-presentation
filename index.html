@@ -16,6 +16,7 @@
   <header class="site-header">
     <nav class="nav" aria-label="Navegação principal">
       <a href="#inicio">Início</a>
+      <a href="#problema-educacional">Problema educacional</a>
       <a href="#motivacao">Motivação</a>
       <a href="#tipos-dataset">Tipos de Dataset</a>
       <a href="#formatos">Formatos de anotação</a>
@@ -44,6 +45,19 @@
     </section>
 
     <div class="section-sep" aria-hidden="true"></div>
+
+    <section id="problema-educacional" class="section reveal">
+      <div class="container">
+        <h2 class="section-title">Problema educacional identificado</h2>
+        <div class="proposal-text">
+          <p>A proposta do projeto nasce de uma lacuna educacional contemporânea: a escassez de plataformas que combinem memorização estruturada em larga escala com treino prático aplicado a tarefas visuais complexas. Ferramentas no estilo do Anki demonstraram grande eficácia na consolidação de conhecimento por meio de flashcards e repetição espaçada, sobretudo em áreas que exigem retenção intensa de conceitos, fórmulas e classificações. Entretanto, tais ferramentas permanecem predominantemente textuais e conceituais, não explorando de forma estruturada o treinamento visual e espacial necessário em diversas áreas da saúde.</p>
+          <p>O DSA propõe justamente essa intersecção: integrar a lógica pedagógica inspirada no modelo “Anki-style” com práticas de detecção e segmentação de imagens, essenciais ao desenvolvimento da acurácia diagnóstica e da leitura visual em contextos médicos. Em vez de apenas memorizar conceitos, o estudante passa a exercitar a identificação ativa de estruturas, padrões e regiões de interesse em imagens, transformando o aprendizado em uma prática cognitiva aplicada.</p>
+          <p>O diferencial central do projeto está na unificação entre três dimensões tradicionalmente separadas: avaliação formativa automatizada, ferramenta de treino para o discente e geração estruturada de datasets. A mesma atividade que promove memorização e consolidação do conteúdo produz dados rotulados com controle matemático rigoroso de qualidade, por meio de métricas formais como IoU (Intersection over Union), média harmônica (F1-Score) e matching ótimo via algoritmo Húngaro. Esse arcabouço garante objetividade na avaliação e padronização na produção de dados.</p>
+          <p>Assim, o sistema não se limita a ser uma ferramenta de estudo, nem apenas uma plataforma de rotulação. Ele se posiciona como infraestrutura educacional e científica, capaz de centralizar práticas de treinamento visual, avaliação quantitativa e geração de dados confiáveis para pesquisa em aprendizado de máquina aplicado à saúde.</p>
+          <p>Sob essa perspectiva, a proposta assume caráter estratégico: criar uma plataforma médico-estudantil que simultaneamente fortaleça a formação do discente, aumente a qualidade da avaliação prática e produza insumos para pesquisa em inteligência artificial. Trata-se, portanto, de uma convergência entre educação, engenharia de software e ciência de dados, com potencial de impacto tanto pedagógico quanto científico.</p>
+        </div>
+      </div>
+    </section>
 
     <section id="motivacao" class="section section--light reveal">
       <div class="container">
@@ -147,7 +161,7 @@
   "class_id": 2,
   "polygon": [0.2, 0.3, 0.5, 0.3, 0.35, 0.7]
 }</code></pre>
-            <p class="muted">Três vértices: (0.2, 0.3), (0.5, 0.3), (0.35, 0.7). Ao exportar para YOLO segmentação, a mesma lista é usada nas linhas do ficheiro de labels.</p>
+            <p class="muted">Três vértices: (0.2, 0.3), (0.5, 0.3), (0.35, 0.7). Ao exportar para YOLO segmentação, a mesma lista é usada nas linhas do arquivo de labels.</p>
           </article>
         </div>
       </div>
@@ -166,7 +180,7 @@
           <article class="doc-card doc-card--blue">
             <span class="doc-card-icon"><i class="fas fa-draw-polygon"></i></span>
             <h3>YOLO (segmentação)</h3>
-            <p>YOLO v8+ suporta segmentação com um ficheiro de texto por imagem: cada linha = uma instância, começando por <code>class_id</code> seguido de coordenadas normalizadas x1,y1,x2,y2,... (mesmo formato que o nosso polígono). A plataforma gera ZIP com imagens e pastas de labels no formato YOLO para download e uso direto em pipelines de treino.</p>
+            <p>YOLO v8+ suporta segmentação com um arquivo de texto por imagem: cada linha = uma instância, começando por <code>class_id</code> seguido de coordenadas normalizadas x1,y1,x2,y2,... (mesmo formato que o nosso polígono). A plataforma gera ZIP com imagens e pastas de labels no formato YOLO para download e uso direto em pipelines de treino.</p>
           </article>
         </div>
       </div>
@@ -250,7 +264,7 @@
             <p class="demo-instruction">Arraste na área abaixo para desenhar um retângulo (bounding box).</p>
             <div class="demo-canvas-wrap">
               <canvas id="demo-detection" class="demo-canvas" width="400" height="280"></canvas>
-              <p class="demo-legend" id="detection-legend">Solte o rato para concluir a caixa.</p>
+              <p class="demo-legend" id="detection-legend">Solte o mouse para concluir a caixa.</p>
             </div>
           </div>
           <div class="demo-box">
@@ -320,7 +334,7 @@
         <p class="lead">Como o projeto está organizado em camadas e como é implantado.</p>
         <ul class="stack-list">
           <li><strong>Backend:</strong> Flask (Python), Gunicorn em produção. API REST com Swagger (<code>/api-docs</code>). Config validada ao arranque (JWT, MongoDB, S3 obrigatórios quando usados); rate limiting (auth, uploads).</li>
-          <li><strong>Arquitetura (Clean Architecture):</strong> <code>presentation</code> (rotas, DTOs), <code>application</code> (use cases: datasets, medias, exercises, auth, reports), <code>domain</code> (exceptions, evaluation: IoU, matching, métricas), <code>infrastructure</code> (MongoDB, S3/GridFS, JWT). Rotas não acedem ao DB; orquestração nos use cases.</li>
+          <li><strong>Arquitetura (Clean Architecture):</strong> <code>presentation</code> (rotas, DTOs), <code>application</code> (use cases: datasets, medias, exercises, auth, reports), <code>domain</code> (exceptions, evaluation: IoU, matching, métricas), <code>infrastructure</code> (MongoDB, S3/GridFS, JWT). Rotas não acessam o DB; orquestração nos use cases.</li>
           <li><strong>Frontend:</strong> React (Vite) em <code>data-labelling-app-frontend/</code>. Design system com variáveis em <code>_variables.scss</code> (cores primárias, secundárias, neutros, semânticas).</li>
           <li><strong>Armazenamento de imagens:</strong> GridFS (MongoDB) ou bucket S3-compatível (MinIO), configurável por variável de ambiente.</li>
           <li><strong>Deploy:</strong> Docker Compose — serviços app (Gunicorn), frontend (build estático servido por Nginx), MongoDB, MinIO. Perfil opcional: Prometheus + Grafana. Logging estruturado com <code>request_id</code>.</li>
@@ -333,7 +347,6 @@
     <div class="container">
       <p>DataLabelling App — Projeto de Iniciação Científica · v0.0.1</p>
       <p class="footer-brand">Ramos AI</p>
-      <p class="footer-note">Documentação técnica em <code>docs/</code> no repositório</p>
     </div>
   </footer>
 
