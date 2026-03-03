@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0B3C5D">
+  <meta name="description" content="DataLabelling App — Ferramenta educacional e plataforma de rotulação para uso em estudo e práticas de medicina. Projeto de Iniciação Científica, Ramos AI.">
+  <title>DataLabelling App — Iniciação Científica | Ramos AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Navegação principal">
+      <a href="#inicio">Início</a>
+      <a href="#motivacao">Motivação</a>
+      <a href="#tipos-dataset">Tipos de Dataset</a>
+      <a href="#formatos">Formatos de anotação</a>
+      <a href="#coco-yolo">COCO e YOLO</a>
+      <a href="#exercicios">Exercícios e correção</a>
+      <a href="#dados">Dados e Export</a>
+      <a href="#teste-voce">Teste você</a>
+      <a href="#infra">Infraestrutura</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="inicio" class="hero reveal">
+      <div class="hero-badge">INICIAÇÃO CIENTÍFICA</div>
+      <h1 class="hero-title">DataLabelling App</h1>
+      <p class="hero-subtitle">Ferramenta educacional e plataforma de rotulação para uso em estudo e práticas de medicina</p>
+      <div class="hero-meta">
+        <p><span class="icon-wrap"><i class="fas fa-graduation-cap" aria-hidden="true"></i></span> Orientação: Prof. Gabriel de Oliveira Ramos</p>
+        <p class="hero-meta-line"><span class="icon-wrap"><i class="fas fa-code" aria-hidden="true"></i></span> Desenvolvedores: Pedro Henrique Bonifácio da Rosa; Augusto Benjamin Reich</p>
+        <p class="hero-meta-line"><span class="icon-wrap"><i class="fas fa-university" aria-hidden="true"></i></span> Instituição: Universidade do Vale do Rio dos Sinos</p>
+        <p><span class="icon-wrap"><i class="fas fa-clipboard-check" aria-hidden="true"></i></span> Projeto: DataLabelling App da Ramos AI</p>
+        <p><span class="icon-wrap"><i class="fas fa-calendar-alt" aria-hidden="true"></i></span> Ano: 2026</p>
+        <p><span class="icon-wrap"><i class="fas fa-tag" aria-hidden="true"></i></span> Versão: v0.0.1</p>
+      </div>
+      <p class="hero-brand">Ramos AI</p>
+    </section>
+
+    <div class="section-sep" aria-hidden="true"></div>
+
+    <section id="motivacao" class="section section--light reveal">
+      <div class="container">
+        <h2 class="section-title">Motivação e Aplicações na Saúde</h2>
+        <div class="block-list">
+          <article class="info-block">
+            <span class="info-block-icon info-block-icon--warning" aria-hidden="true"><i class="fas fa-exclamation-triangle"></i></span>
+            <div>
+              <h3 class="info-block-title">Problema</h3>
+              <p>Treinar o olhar dos estudantes para reconhecer estruturas em imagens e gerar bases de dados rotuladas de qualidade para uso em estudo e práticas de medicina e áreas afins.</p>
+            </div>
+          </article>
+          <article class="info-block">
+            <span class="info-block-icon info-block-icon--target" aria-hidden="true"><i class="fas fa-bullseye"></i></span>
+            <div>
+              <h3 class="info-block-title">Objetivo Central</h3>
+              <p>Unificar prática educacional com produção de dados de ML: a mesma atividade avalia o aluno e gera dados rotulados (classificação, detecção, segmentação) para treino de modelos.</p>
+            </div>
+          </article>
+          <article class="info-block">
+            <span class="info-block-icon info-block-icon--check" aria-hidden="true"><i class="fas fa-check-circle"></i></span>
+            <div>
+              <h3 class="info-block-title">Benefícios</h3>
+              <p>Feedback imediato ao aluno, notas automáticas com critérios claros (IoU, mesma categoria), rastreabilidade completa e export em formatos padrão (COCO, YOLO).</p>
+            </div>
+          </article>
+          <article class="info-block">
+            <span class="info-block-icon info-block-icon--tags" aria-hidden="true"><i class="fas fa-tags"></i></span>
+            <div>
+              <h3 class="info-block-title">Aplicações Transversais</h3>
+              <p>Anatomia, patologia, radiologia, dermatologia – qualquer área que use imagens para classificação, detecção de objetos ou segmentação de regiões.</p>
+            </div>
+          </article>
+          <article class="info-block">
+            <span class="info-block-icon info-block-icon--people" aria-hidden="true"><i class="fas fa-users"></i></span>
+            <div>
+              <h3 class="info-block-title">Público-Alvo</h3>
+              <p>Professores e pesquisadores (criar datasets e exercícios), estudantes (praticar e contribuir com dados) e times de ML (consumir dados).</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="tipos-dataset" class="section reveal">
+      <div class="container">
+        <h2 class="section-title">Construção Técnica — Tipos de Dataset</h2>
+        <div class="cards-three">
+          <article class="doc-card doc-card--purple">
+            <span class="doc-card-icon" aria-hidden="true"><i class="fas fa-tags"></i></span>
+            <h3>Classificação</h3>
+            <p><strong>O QUE É:</strong> Um rótulo por imagem (ou vazio). O usuário escolhe um rótulo da lista do dataset.</p>
+            <p><strong>FORMATO:</strong> Labels armazenados em coleção <code>labelled</code> por dataset_id + file_id.</p>
+            <p><strong>INTERFACE:</strong> Escolha simples de rótulo da lista disponível no dataset.</p>
+            <p><strong>USO:</strong> Rotulação (Labeller/QuickLabeller) e prática assistida com comparação automática.</p>
+          </article>
+          <article class="doc-card doc-card--green">
+            <span class="doc-card-icon" aria-hidden="true"><i class="fas fa-square"></i></span>
+            <h3>Detecção</h3>
+            <p><strong>O QUE É:</strong> Objetos localizados com bounding boxes (retângulos) e uma classe por objeto.</p>
+            <p><strong>FORMATO:</strong> COCO — <code>category_id</code>, <code>bbox</code> [x_min, y_min, width, height], segmentation, area, iscrowd.</p>
+            <p><strong>INTERFACE:</strong> Desenhar caixas delimitadoras e associar classe a cada objeto.</p>
+            <p><strong>USO:</strong> Rotulação em formato COCO, prática assistida com correção por IoU e matching.</p>
+          </article>
+          <article class="doc-card doc-card--blue">
+            <span class="doc-card-icon" aria-hidden="true"><i class="fas fa-draw-polygon"></i></span>
+            <h3>Segmentação</h3>
+            <p><strong>O QUE É:</strong> Regiões definidas por polígonos (máscaras) com uma classe por região.</p>
+            <p><strong>FORMATO:</strong> Polígonos em coordenadas normalizadas [0,1], compatível com export YOLO segmentação.</p>
+            <p><strong>INTERFACE:</strong> Desenhar polígonos que delimitam regiões e associar classe.</p>
+            <p><strong>USO:</strong> Rotulação de máscaras, prática assistida com correção por IoU de polígono (Shapely).</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="formatos" class="section section--light reveal">
+      <div class="container">
+        <h2 class="section-title">Como são guardadas as anotações</h2>
+        <p class="lead">Exemplos concretos dos formatos usados na plataforma para bounding boxes e polígonos.</p>
+        <div class="cards-two">
+          <article class="doc-card doc-card--green">
+            <span class="doc-card-icon"><i class="fas fa-square"></i></span>
+            <h3>Bounding box (detecção)</h3>
+            <p>Formato COCO: lista de 4 números <strong>[x_min, y_min, width, height]</strong>. Podem ser em pixels (export COCO) ou normalizados conforme o contexto.</p>
+            <p><strong>Exemplo (uma anotação):</strong></p>
+            <pre class="pre-block"><code>{
+  "category_id": 1,
+  "bbox": [120, 80, 200, 150],
+  "area": 30000,
+  "iscrowd": 0
+}</code></pre>
+            <p class="muted">Interpretação: caixa com canto superior-esquerdo em (120, 80), largura 200 e altura 150. <code>area</code> = width × height.</p>
+          </article>
+          <article class="doc-card doc-card--blue">
+            <span class="doc-card-icon"><i class="fas fa-draw-polygon"></i></span>
+            <h3>Polígono (segmentação)</h3>
+            <p>Lista plana de coordenadas <strong>normalizadas entre 0 e 1</strong>: <code>[x1, y1, x2, y2, x3, y3, ...]</code>. Mínimo 3 pontos (6 valores). Ordem dos vértices: sentido anti-horário (convenção interna).</p>
+            <p><strong>Exemplo (um polígono triangular):</strong></p>
+            <pre class="pre-block"><code>{
+  "class_id": 2,
+  "polygon": [0.2, 0.3, 0.5, 0.3, 0.35, 0.7]
+}</code></pre>
+            <p class="muted">Três vértices: (0.2, 0.3), (0.5, 0.3), (0.35, 0.7). Ao exportar para YOLO segmentação, a mesma lista é usada nas linhas do ficheiro de labels.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="coco-yolo" class="section reveal">
+      <div class="container">
+        <h2 class="section-title">COCO e YOLO</h2>
+        <p class="lead">Formatos padrão de anotação que a plataforma suporta para detecção e segmentação.</p>
+        <div class="cards-two">
+          <article class="doc-card doc-card--green">
+            <span class="doc-card-icon"><i class="fas fa-file-code"></i></span>
+            <h3>COCO (Common Objects in Context)</h3>
+            <p>Formato JSON usado em detecção e segmentação de objetos. Cada anotação tem <code>id</code>, <code>image_id</code>, <code>category_id</code>, <code>bbox</code> [x, y, width, height] em pixels, e opcionalmente <code>segmentation</code> (RLE ou polígonos). Inclui <code>annotations</code>, <code>images</code>, <code>categories</code>. A nossa API exporta anotações em estrutura compatível com COCO para treino (por exemplo PyTorch/TensorFlow).</p>
+          </article>
+          <article class="doc-card doc-card--blue">
+            <span class="doc-card-icon"><i class="fas fa-draw-polygon"></i></span>
+            <h3>YOLO (segmentação)</h3>
+            <p>YOLO v8+ suporta segmentação com um ficheiro de texto por imagem: cada linha = uma instância, começando por <code>class_id</code> seguido de coordenadas normalizadas x1,y1,x2,y2,... (mesmo formato que o nosso polígono). A plataforma gera ZIP com imagens e pastas de labels no formato YOLO para download e uso direto em pipelines de treino.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="exercicios" class="section section--light reveal">
+      <div class="container">
+        <h2 class="section-title">Exercícios e Correção Automática</h2>
+        <div class="cards-stacked">
+          <article class="doc-card doc-card--full doc-card--purple">
+            <span class="doc-card-icon"><i class="fas fa-book"></i></span>
+            <h3>Exercícios</h3>
+            <ul class="doc-card-list">
+              <li><strong>Vínculo ao Dataset:</strong> Cada exercício está ligado a um dataset e herda automaticamente o task_type (classificação, detecção ou segmentação).</li>
+              <li><strong>Prática Assistida:</strong> Lista de imagens com resposta de referência. O aluno responde e recebe nota automática por comparação.</li>
+              <li><strong>Prática Livre:</strong> Imagens opcionais sem comparação automática. O professor pode corrigir manualmente quando necessário.</li>
+              <li><strong>Parâmetros Configuráveis:</strong> iou_threshold, detection_score_mode (recall ou F1), segmentation_iou_threshold, segmentation_score_mode.</li>
+              <li><strong>Peso do Exercício:</strong> Cada exercício possui um score (peso) que multiplica a percentagem de acertos na nota final.</li>
+            </ul>
+          </article>
+          <article id="correcao" class="doc-card doc-card--full doc-card--green">
+            <span class="doc-card-icon"><i class="fas fa-check-circle"></i></span>
+            <h3>Correção automática</h3>
+            <ul class="doc-card-list">
+              <li><strong>Classificação:</strong> Resposta correta se o conjunto de rótulos do aluno for igual ao guardado em <code>labelled</code>.</li>
+              <li><strong>Detecção (COCO):</strong> Mesma classe + IoU bbox ≥ threshold + matching 1-1 (algoritmo húngaro). Nota por imagem em recall ou F1.</li>
+              <li><strong>Segmentação:</strong> Mesma classe + IoU de polígonos (Shapely) ≥ threshold + matching 1-1. Nota por imagem em recall ou F1.</li>
+              <li><strong>Re-Correção Manual:</strong> Professor pode sobrescrever a nota automática por imagem (detecção/segmentação) ou usar nota final manual.</li>
+            </ul>
+            <div class="highlight-box">
+              <strong>Algoritmo Húngaro:</strong> Utilizado para matching 1-1 entre anotações do aluno e de referência, maximizando a soma dos IoUs respeitando a mesma categoria.
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="dados" class="section reveal">
+      <div class="container">
+        <h2 class="section-title">Dados para Treino e Conclusão</h2>
+        <div class="cards-two">
+          <article class="doc-card doc-card--blue">
+            <span class="doc-card-icon"><i class="fas fa-database"></i></span>
+            <h3>Dados e Armazenamento</h3>
+            <ul class="doc-card-list doc-card-list--check">
+              <li><strong>MongoDB + GridFS:</strong> coleções datasets, media, labelled, coco_annotations, segmentação, exercises_submissions.</li>
+              <li><strong>Classificação:</strong> labels armazenados em array de strings.</li>
+              <li><strong>Detecção/Segmentação:</strong> annotations em formato COCO ou polígonos normalizados.</li>
+              <li><strong>Submissões:</strong> respostas dos alunos em estruturas compatíveis com formatos padrão de treino.</li>
+            </ul>
+          </article>
+          <article class="doc-card doc-card--green">
+            <span class="doc-card-icon"><i class="fas fa-file-export"></i></span>
+            <h3>Export e Pipelines</h3>
+            <ul class="doc-card-list doc-card-list--arrow">
+              <li><strong>Detecção:</strong> anotações prontas em formato COCO (JSON).</li>
+              <li><strong>Segmentação:</strong> export YOLO segmentação via API (ZIP com imagens e labels).</li>
+              <li><strong>Pipeline típico:</strong> ler ground truth por dataset_id/file_id → baixar imagens do GridFS → treinar (PyTorch/TensorFlow/YOLO).</li>
+              <li><strong>Consenso:</strong> possibilidade de incluir respostas de múltiplos alunos para análise de concordância.</li>
+            </ul>
+          </article>
+        </div>
+        <article class="doc-card doc-card--full doc-card--purple reveal">
+          <span class="doc-card-icon"><i class="fas fa-flag-checkered"></i></span>
+          <h3>Conclusão e Próximos Passos</h3>
+          <p>O DataLabelling App integra educação e geração de dados: a mesma atividade que avalia o aluno produz dados rotulados de alta qualidade para treino de modelos de IA. Aplicável a toda área da saúde que utilize imagens em estudo e prática (anatomia, patologia, radiologia, dermatologia).</p>
+          <div class="highlight-box">
+            <strong>Próximos passos:</strong> Integração contínua com pipelines de ML, expansão de formatos de export e ferramentas de análise de consenso entre anotadores.
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="teste-voce" class="section section--light reveal">
+      <div class="container">
+        <h2 class="section-title">Teste você</h2>
+        <p class="lead">Experimente como funciona a edição de <strong>detecção</strong> (bounding box) e <strong>segmentação</strong> (polígono) numa área simulada. Na aplicação real, estes gestos são feitos sobre imagens do dataset.</p>
+        <div class="demo-grid">
+          <div class="demo-box">
+            <h3 class="demo-title">Detecção — desenhar uma caixa</h3>
+            <p class="demo-instruction">Arraste na área abaixo para desenhar um retângulo (bounding box).</p>
+            <div class="demo-canvas-wrap">
+              <canvas id="demo-detection" class="demo-canvas" width="400" height="280"></canvas>
+              <p class="demo-legend" id="detection-legend">Solte o rato para concluir a caixa.</p>
+            </div>
+          </div>
+          <div class="demo-box">
+            <h3 class="demo-title">Segmentação — desenhar um polígono</h3>
+            <p class="demo-instruction">Clique para adicionar vértices; clique no primeiro ponto (ou em "Fechar") para fechar o polígono.</p>
+            <div class="demo-canvas-wrap">
+              <canvas id="demo-segmentation" class="demo-canvas" width="400" height="280"></canvas>
+              <p class="demo-legend">
+                <button type="button" class="demo-btn" id="btn-close-poly">Fechar polígono</button>
+                <button type="button" class="demo-btn demo-btn--secondary" id="btn-clear-poly">Limpar</button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="correcao-detalhes" class="section reveal">
+      <div class="container">
+        <h2 class="section-title">Tipos, formas e algoritmos de correção</h2>
+        <div class="table-wrap">
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Tipo</th>
+                <th>Threshold (ex.)</th>
+                <th>Modo de nota</th>
+                <th>Algoritmo de matching</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Classificação</td><td>—</td><td>acertos/total</td><td>—</td></tr>
+              <tr><td>Detecção</td><td><code>iou_threshold</code> 0,85</td><td>recall ou F1</td><td>Hungarian (scipy)</td></tr>
+              <tr><td>Segmentação</td><td><code>segmentation_iou_threshold</code> 0,75</td><td>recall ou F1</td><td>Hungarian (scipy)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 class="subsection-title">Algoritmo Húngaro (matching 1-a-1)</h3>
+        <p>Nas tarefas de detecção e segmentação temos duas listas: anotações do aluno e anotações de referência. Precisamos decidir <em>quem casa com quem</em> (cada predição com no máximo uma referência da mesma categoria) para contar acertos. O <strong>algoritmo Húngaro</strong> (Kuhn-Munkres) resolve exactamente isso: dado uma matriz de custos entre predições e referências (só pares da mesma classe têm custo finito), encontra a atribuição 1-a-1 que <strong>minimiza a soma dos custos</strong>. Usamos custo = 1 − IoU, então minimizar o custo equivale a maximizar o IoU total. Assim garantimos o matching mais favorável ao aluno (maior sobreposição possível) e, em seguida, contamos como “match” apenas os pares com IoU ≥ threshold. Implementação: <code>scipy.optimize.linear_sum_assignment</code>.</p>
+
+        <h3 class="subsection-title">Fórmulas: IoU e área de polígono</h3>
+        <p><strong>IoU (Intersection over Union)</strong> mede sobreposição entre duas regiões. Valor em [0, 1]; 1 = coincidência total.</p>
+        <div class="formula-block">
+          <p class="formula-label">IoU (genérico, bbox ou máscara):</p>
+          <p class="formula">IoU(A, B) = <span class="frac">area(A ∩ B) / area(A ∪ B)</span></p>
+          <p class="formula-note">Para bboxes: interseção e união são rectângulos; area = largura × altura. Para polígonos: usamos interseção/unão geométricas (ex.: Shapely).</p>
+        </div>
+        <div class="formula-block">
+          <p class="formula-label">União em função da interseção (bbox):</p>
+          <p class="formula">area(A ∪ B) = area(A) + area(B) − area(A ∩ B)</p>
+        </div>
+        <div class="formula-block">
+          <p class="formula-label">Área de polígono (fórmula Shoelace)</p>
+          <p>Com vértices (x<sub>i</sub>, y<sub>i</sub>), i = 0…n−1, fechado (índice n ≡ 0):</p>
+          <p class="formula">area = <span class="frac">1/2</span> · <span class="big">|</span> Σ<sub>i=0</sub><sup>n−1</sup> (x<sub>i</sub> y<sub>i+1</sub> − x<sub>i+1</sub> y<sub>i</sub>) <span class="big">|</span></p>
+          <p class="formula-note">Usada na nossa avaliação para polígonos (YOLO/segmentação). Coordenadas normalizadas em [0, 1].</p>
+        </div>
+
+        <p class="muted">A correção manual pelo professor (Re-Corrigir) permite sobrescrever a nota automática por imagem ou usar apenas a nota final manual.</p>
+      </div>
+    </section>
+
+    <section id="infra" class="section section--light reveal">
+      <div class="container">
+        <h2 class="section-title">Infraestrutura e Stack</h2>
+        <p class="lead">Como o projeto está organizado em camadas e como é implantado.</p>
+        <ul class="stack-list">
+          <li><strong>Backend:</strong> Flask (Python), Gunicorn em produção. API REST com Swagger (<code>/api-docs</code>). Config validada ao arranque (JWT, MongoDB, S3 obrigatórios quando usados); rate limiting (auth, uploads).</li>
+          <li><strong>Arquitetura (Clean Architecture):</strong> <code>presentation</code> (rotas, DTOs), <code>application</code> (use cases: datasets, medias, exercises, auth, reports), <code>domain</code> (exceptions, evaluation: IoU, matching, métricas), <code>infrastructure</code> (MongoDB, S3/GridFS, JWT). Rotas não acedem ao DB; orquestração nos use cases.</li>
+          <li><strong>Frontend:</strong> React (Vite) em <code>data-labelling-app-frontend/</code>. Design system com variáveis em <code>_variables.scss</code> (cores primárias, secundárias, neutros, semânticas).</li>
+          <li><strong>Armazenamento de imagens:</strong> GridFS (MongoDB) ou bucket S3-compatível (MinIO), configurável por variável de ambiente.</li>
+          <li><strong>Deploy:</strong> Docker Compose — serviços app (Gunicorn), frontend (build estático servido por Nginx), MongoDB, MinIO. Perfil opcional: Prometheus + Grafana. Logging estruturado com <code>request_id</code>.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>DataLabelling App — Projeto de Iniciação Científica · v0.0.1</p>
+      <p class="footer-brand">Ramos AI</p>
+      <p class="footer-note">Documentação técnica em <code>docs/</code> no repositório</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="demos.js"></script>
+</body>
+</html>
