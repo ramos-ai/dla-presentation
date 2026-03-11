@@ -23,6 +23,7 @@
       <a href="#coco-yolo">COCO e YOLO</a>
       <a href="#exercicios">Exercícios e correção</a>
       <a href="#dados">Dados e Export</a>
+      <a href="#exportacao">Exportação</a>
       <a href="#teste-voce">Teste você</a>
       <a href="#infra">Infraestrutura</a>
     </nav>
@@ -243,6 +244,40 @@
             </ul>
           </article>
         </div>
+
+        <article id="exportacao" class="doc-card doc-card--full doc-card--green reveal">
+          <span class="doc-card-icon"><i class="fas fa-download"></i></span>
+          <h3>Exportação de Dataset (COCO e YOLO)</h3>
+          <p class="lead">A plataforma exporta datasets em ZIP com imagens, anotações e <code>data.yaml</code>, prontos para treino. O formato depende do tipo de tarefa.</p>
+
+          <h4 class="subsection-title">Formatos por tipo de tarefa</h4>
+          <ul class="doc-card-list">
+            <li><strong>Detecção:</strong> COCO — <code>dataset.json</code> com images, annotations, categories; imagens em JPG.</li>
+            <li><strong>Segmentação:</strong> YOLO — pastas <code>images/</code> e <code>labels/</code> com um arquivo <code>.txt</code> por imagem (class_id + coordenadas normalizadas do polígono).</li>
+            <li><strong>Classificação:</strong> pastas por rótulo; <code>dataset.json</code> e <code>data.yaml</code>.</li>
+          </ul>
+
+          <h4 class="subsection-title">Critérios e regras</h4>
+          <ul class="doc-card-list">
+            <li><strong>Treino apenas com rotuladas:</strong> Por consistência com ML supervisionado, o split <em>treino</em> usa somente imagens já rotuladas. Validação e teste podem receber imagens sem anotação quando o professor optar por incluí-las.</li>
+            <li><strong>Imagens sem anotação:</strong> Opção "Incluir imagens sem anotação" — quando ativada, todas as imagens do dataset entram no export; treino fica limitado às rotuladas; o restante é distribuído entre validação e teste.</li>
+            <li><strong>Sem segmentação:</strong> Se o professor não escolher splits (nenhum checkbox em automático, nenhuma imagem em manual), todas as imagens vão para <code>images/</code> na raiz, sem subpastas train/val/test.</li>
+          </ul>
+
+          <h4 class="subsection-title">Formas de divisão (split)</h4>
+          <ul class="doc-card-list">
+            <li><strong>Automático (porcentagens):</strong> Define % para treino, validação e teste (ex.: 66% / 34% / 0%). O split é aleatório com seed configurável para reprodutibilidade.</li>
+            <li><strong>Manual (escolher imagens):</strong> O professor seleciona manualmente quais imagens vão para cada split. Cada imagem pertence a um único split (treino, validação ou teste).</li>
+          </ul>
+
+          <h4 class="subsection-title">Personalizações disponíveis</h4>
+          <ul class="doc-card-list">
+            <li><strong>Exportação rápida:</strong> 66% treino / 34% validação; apenas imagens rotuladas.</li>
+            <li><strong>Exportação personalizada:</strong> Modo automático ou manual; checkboxes para incluir/excluir splits; porcentagens configuráveis.</li>
+            <li><strong>Imagens:</strong> Manter resolução original ou redimensionar (largura máx. em px, qualidade JPEG).</li>
+            <li><strong>Seed:</strong> Para reprodutibilidade do split aleatório.</li>
+          </ul>
+        </article>
         <article class="doc-card doc-card--full doc-card--purple reveal">
           <span class="doc-card-icon"><i class="fas fa-flag-checkered"></i></span>
           <h3>Conclusão e Próximos Passos</h3>
