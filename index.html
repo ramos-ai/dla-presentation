@@ -26,6 +26,7 @@
       <a href="#exportacao">Exportação</a>
       <a href="#teste-voce">Teste você</a>
       <a href="#infra">Infraestrutura</a>
+      <a href="#dashboard-professor">Dashboard</a>
     </nav>
   </header>
 
@@ -40,7 +41,7 @@
         <p class="hero-meta-line"><span class="icon-wrap"><i class="fas fa-university" aria-hidden="true"></i></span> Instituição: Universidade do Vale do Rio dos Sinos</p>
         <p><span class="icon-wrap"><i class="fas fa-clipboard-check" aria-hidden="true"></i></span> Projeto: DataLabelling App da Ramos AI</p>
         <p><span class="icon-wrap"><i class="fas fa-calendar-alt" aria-hidden="true"></i></span> Ano: 2026</p>
-        <p><span class="icon-wrap"><i class="fas fa-tag" aria-hidden="true"></i></span> Versão: v0.0.1</p>
+        <p><span class="icon-wrap"><i class="fas fa-tag" aria-hidden="true"></i></span> Versão: v1.0.0</p>
       </div>
       <p class="hero-brand">Ramos AI</p>
     </section>
@@ -369,18 +370,90 @@
         <p class="lead">Como o projeto está organizado em camadas e como é implantado.</p>
         <ul class="stack-list">
           <li><strong>Backend:</strong> Flask (Python), Gunicorn em produção. API REST com Swagger (<code>/api-docs</code>). Config validada ao arranque (JWT, MongoDB, S3 obrigatórios quando usados); rate limiting (auth, uploads).</li>
-          <li><strong>Arquitetura (Clean Architecture):</strong> <code>presentation</code> (rotas, DTOs), <code>application</code> (use cases: datasets, medias, exercises, auth, reports), <code>domain</code> (exceptions, evaluation: IoU, matching, métricas), <code>infrastructure</code> (MongoDB, S3/GridFS, JWT). Rotas não acessam o DB; orquestração nos use cases.</li>
-          <li><strong>Frontend:</strong> React (Vite) em <code>data-labelling-app-frontend/</code>. Design system com variáveis em <code>_variables.scss</code> (cores primárias, secundárias, neutros, semânticas).</li>
+          <li><strong>Arquitetura (Clean Architecture):</strong> <code>presentation</code> (rotas, DTOs), <code>application</code> (use cases: datasets, medias, exercises, auth, reports), <code>domain</code> (exceptions, evaluation: IoU, matching, métricas), <code>infrastructure</code> (MongoDB, S3/GridFS, JWT, Redis, Celery). Rotas não acessam o DB; orquestração nos use cases.</li>
+          <li><strong>Frontend:</strong> React (Vite) em <code>data-labelling-app-frontend/</code>. Design system com variáveis em <code>_variables.scss</code> (cores primárias, secundárias, neutros, semânticas). Gráficos com Recharts.</li>
           <li><strong>Armazenamento de imagens:</strong> GridFS (MongoDB) ou bucket S3-compatível (MinIO), configurável por variável de ambiente.</li>
-          <li><strong>Deploy:</strong> Docker Compose — serviços app (Gunicorn), frontend (build estático servido por Nginx), MongoDB, MinIO. Perfil opcional: Prometheus + Grafana. Logging estruturado com <code>request_id</code>.</li>
+          <li><strong>Cache e Filas:</strong> Redis para cache de sessões e broker de mensagens. Celery worker para tarefas assíncronas em background (processamento de imagens, exports pesados).</li>
+          <li><strong>Deploy:</strong> Docker Compose — serviços: app (Gunicorn), frontend (Nginx), MongoDB, Redis, Celery worker, MinIO. Perfil opcional: Prometheus + Grafana para observabilidade. Logging estruturado com <code>request_id</code>.</li>
+          <li><strong>Portas expostas (produção):</strong> 18080 (Frontend), 15050 (Backend API). Serviços internos (MongoDB, Redis, MinIO) acessíveis apenas via rede Docker interna.</li>
+          <li><strong>Observabilidade (opcional):</strong> Prometheus (19090) + Grafana (13000) + MongoDB Exporter para métricas e dashboards de monitoramento.</li>
         </ul>
+      </div>
+    </section>
+
+    <section id="dashboard-professor" class="section reveal">
+      <div class="container">
+        <h2 class="section-title">Dashboard do Professor</h2>
+        <p class="lead">Painel analítico com métricas pedagógicas, gráficos interativos e insights automáticos para acompanhamento do desempenho dos alunos.</p>
+        
+        <div class="cards-two">
+          <article class="doc-card doc-card--purple">
+            <span class="doc-card-icon"><i class="fas fa-chart-pie"></i></span>
+            <h3>Métricas e KPIs</h3>
+            <ul class="doc-card-list doc-card-list--check">
+              <li><strong>Total de Exercícios:</strong> Quantidade de exercícios criados pelo professor.</li>
+              <li><strong>Total de Submissões:</strong> Respostas recebidas dos alunos.</li>
+              <li><strong>Alunos Ativos:</strong> Número de alunos que participaram.</li>
+              <li><strong>Média Geral:</strong> Nota média de todas as submissões.</li>
+              <li><strong>Taxa de Conclusão:</strong> Percentual de exercícios finalizados.</li>
+            </ul>
+          </article>
+          <article class="doc-card doc-card--green">
+            <span class="doc-card-icon"><i class="fas fa-chart-line"></i></span>
+            <h3>Gráficos Interativos</h3>
+            <ul class="doc-card-list doc-card-list--arrow">
+              <li><strong>Distribuição de Notas:</strong> Gráfico donut com faixas de desempenho (0-20, 21-40, 41-60, 61-80, 81-100) e cores semânticas.</li>
+              <li><strong>Evolução dos Alunos:</strong> Linha temporal com média semanal e contagem de submissões (eixo secundário). Indicador de tendência (subindo/descendo).</li>
+              <li><strong>Respostas vs Esperado:</strong> Matriz de confusão para classificação, mostrando correspondências (diagonal) e divergências.</li>
+              <li><strong>Desempenho por Rótulo:</strong> Barras horizontais com acurácia por classe (apenas classificação).</li>
+            </ul>
+          </article>
+        </div>
+
+        <article class="doc-card doc-card--full doc-card--blue reveal">
+          <span class="doc-card-icon"><i class="fas fa-lightbulb"></i></span>
+          <h3>Insights Automáticos</h3>
+          <p>O sistema gera automaticamente alertas e recomendações pedagógicas baseados nos dados, com níveis de severidade (crítico, alto, médio, baixo):</p>
+          <ul class="doc-card-list">
+            <li><strong>Taxa de conclusão baixa:</strong> Alerta quando poucos alunos finalizam os exercícios.</li>
+            <li><strong>Exercícios com baixo desempenho:</strong> Identifica exercícios com média abaixo de 40%.</li>
+            <li><strong>Alta variação nas notas:</strong> Detecta grande dispersão, sugerindo atenção individual.</li>
+            <li><strong>Confusões frequentes:</strong> Aponta pares de classes que os alunos confundem sistematicamente.</li>
+            <li><strong>Desbalanceamento de classes:</strong> Alerta sobre distribuição desigual de rótulos no dataset.</li>
+            <li><strong>Excelente desempenho:</strong> Reconhece quando a turma está dominando o conteúdo.</li>
+            <li><strong>Tendência de evolução:</strong> Indica se a turma está melhorando ou piorando ao longo do tempo.</li>
+          </ul>
+          <div class="highlight-box">
+            <strong>Priorização:</strong> Os insights são ordenados por severidade, exibindo os 4 mais relevantes para ação imediata do professor.
+          </div>
+        </article>
+
+        <div class="table-wrap reveal">
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Componente</th>
+                <th>Tipo de Tarefa</th>
+                <th>Dados Exibidos</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Distribuição de Notas</td><td>Todos</td><td>Contagem por faixa de nota com percentuais</td></tr>
+              <tr><td>Evolução dos Alunos</td><td>Todos</td><td>Média semanal + submissões (últimas 8 semanas)</td></tr>
+              <tr><td>Respostas vs Esperado</td><td>Classificação</td><td>Matriz de confusão com heatmap</td></tr>
+              <tr><td>Desempenho por Rótulo</td><td>Classificação</td><td>Acurácia por classe ordenada</td></tr>
+              <tr><td>Insights Automáticos</td><td>Todos</td><td>Alertas priorizados por severidade</td></tr>
+              <tr><td>Tabela de Exercícios</td><td>Todos</td><td>Estatísticas detalhadas por exercício</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <p>DataLabelling App — Projeto de Iniciação Científica · v0.0.1</p>
+      <p>DataLabelling App — Projeto de Iniciação Científica · v1.0.0</p>
       <p class="footer-brand">Ramos AI</p>
     </div>
   </footer>
